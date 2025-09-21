@@ -16,13 +16,10 @@ class TestCreatingCouriers:
 
     @allure.title('Проверка невозможности создать двух одинаковых курьеров')
     @allure.description('Создание второго курьера с одинаковыми данными')
-    def test_creating_double_courier_conflict(self,courier_create_data):
-        with allure.step('Создание курьера'):
-            payload = courier_create_data
-            create = MetodsCourier.creaite_courier(payload)
-            with allure.step('Создание второго курьера'):
-                if create.status_code == 201 and create.text == TextConstants.SUCCESS_MESSAGE:
-                    create2 = MetodsCourier.creaite_courier(payload)
+    def test_creating_double_courier_conflict(self,courier_create):
+        
+        with allure.step('Создание второго курьера'):
+            create2 = MetodsCourier.creaite_courier(courier_create)
         assert create2.status_code == 409
         assert create2.text == TextConstants.LOG_ERROR_MESSAGE
 
